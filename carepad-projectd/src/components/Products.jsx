@@ -22,7 +22,7 @@ const Container = styled.div`
   useEffect(()=>{
    const getProducts = async ()=>{
     try{
-    const res = await axios.get( cat ? `http://localhost:3001/products?categories=${cat}`:"http://localhost:3001/products")
+    const res = await axios.get( cat ? `http://localhost:5000/api/products?category=${cat}`:"http://localhost:5000/api/products")
     setProduct(res.data)
     }catch(err){ }
     
