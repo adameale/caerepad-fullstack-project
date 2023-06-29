@@ -1,5 +1,7 @@
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Announcement from '../components/Announcement'
 import Footer from '../components/Footer'
@@ -7,6 +9,7 @@ import Main from '../components/Main'
 import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
 import ProNav from '../components/ProNav'
+import { publicRequest } from '../requestMethod'
 import { mobile } from '../responsive'
 
 const Container = styled.div``
@@ -122,47 +125,72 @@ const Button = styled.button`
 `
 
 const Product = () => {
+  const location=useLocation();
+  const id=location.pathname.split("/")[2]
+  const [products,setProduct]=useState({})
+  const [quantity,setQuantity]=useState(1)
+  const [color,setColor]=useState("nul")
+  const [size,setSize]=useState("null")
+
+  useEffect(()=>{
+    const getProduct = async ()=>{
+      try {
+       const res=await publicRequest.get("/products/find/"+ id)
+       setProduct(res.data)
+      } catch (error) {
+        
+      }
+    }
+    getProduct()
+  },[id])
+
+  const handleQuantity=(type)=>{
+    if(type==="dec"){
+      quantity > 1 && setQuantity(quantity-1)
+    }else{
+      setQuantity(quantity+1)
+    }
+  }
   return (
     <>
       <Announcement />
       <ProNav />
       <Wrapper>
         <ImgContainer>
-          <Image src="../images/product8.JPG" />
+          <Image src={products.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Product list details</Title>
+          <Title>{products.title}</Title>
           <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
+        
+        {products.desc}
           </Desc>
-          <Price>$ 0</Price>
+          <Price>${products.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color='black' />
-              <FilterColor color='darkblue' />
-              <FilterColor color='gray' />
+              {products.color.map((c)=>(
+                  <FilterColor color={c} key={c}/>
+              ))}
+             
+             
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                {products.size.map((s)=>(
+                <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))}
+              
+ 
               </FilterSize>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <RemoveOutlinedIcon />
-              <Amount>1</Amount>
-              <AddOutlinedIcon />
+              <RemoveOutlinedIcon onClick={()=>handleQuantity("dec")} />
+              <Amount>{quantity}</Amount>
+              <AddOutlinedIcon onClick={()=>handleQuantity("inc")}/>
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>

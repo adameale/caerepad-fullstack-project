@@ -2,7 +2,12 @@ import styled from 'styled-components';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { ThumbUpOffAlt } from '@mui/icons-material';
+import { SearchOutlined, ThumbUpOffAlt } from '@mui/icons-material';
+import { Link } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { publicRequest } from '../requestMethod';
 
 const Info = styled.div`
   opacity: 0;
@@ -66,6 +71,7 @@ const Icon = styled.div`
 `;
 
 const Product = ({item}) => {
+
   return (
     <Container>
         <Circle />
@@ -75,7 +81,10 @@ const Product = ({item}) => {
              <AddShoppingCartIcon />
             </Icon>
             <Icon>
-            <ThumbUpOffAlt />
+              <Link to={`/product/${item._id}`}>
+              <SearchOutlined/>
+              </Link>
+            
             </Icon>
             <Icon>
             <FavoriteBorderOutlinedIcon />

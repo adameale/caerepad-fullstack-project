@@ -17,7 +17,7 @@ const Container = styled.div`
 
   const Products = ({cat,filter,sort}) => {
     console.log(cat,filter,sort)
-  const  [product,setProduct] =useState([]);
+  const  [productss,setProduct] =useState([]);
   const  [filproducts,setfilProducts] =useState([]);
   useEffect(()=>{
    const getProducts = async ()=>{
@@ -33,20 +33,20 @@ const Container = styled.div`
   useEffect(() => {
     cat &&
     setfilProducts(
-        product.filter((item) =>
+        productss.filter((item) =>
           Object.entries(filter).every(([key, value]) =>
             item[key].includes(value)
           )
         )
       );
-  }, [product, cat, filter]);
+  }, [productss, cat, filter]);
 
   useEffect(() => {
-    if (sort === "newest") {
+    if ((sort === "newest")) {
       setfilProducts((prev) =>
         [...prev].sort((a, b) => a.createdAt - b.createdAt)
       );
-    } else if (sort === "asc") {
+    } else if ((sort === "asc")) {
       setfilProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
@@ -62,8 +62,11 @@ const Container = styled.div`
      <Announcement/>
     {/* <Navbar/>  */}
     <Container>
-      {popularProducts.map((item) => (
+      {cat ?
+      filproducts.map((item) => (
         <Product item={item} key={item.id} />
+      )):productss.slice(0,8).map((item)=>( 
+      <Product item={item} key={item.key}/>
       ))}
     </Container>
     <Footer/>

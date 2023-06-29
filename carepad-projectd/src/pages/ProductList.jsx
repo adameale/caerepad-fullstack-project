@@ -59,7 +59,7 @@ const ProductList = () => {
        <ProNav />
     
       
-      <Title>CarePad list</Title>
+      <Title>{cat}</Title>
       <FiltersContainer>
         <Filters>
           <FiltersText>Filters Products:</FiltersText>
