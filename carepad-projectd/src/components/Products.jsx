@@ -15,16 +15,16 @@ const Container = styled.div`
     margin-top:30px;
 `;
 
-  const Products = ({cat,filter,sort}) => {
-    console.log(cat,filter,sort)
-  const  [productss,setProduct] =useState([]);
+  const Products = ({cat,filters,sort}) => {
+    console.log(cat,filters,sort)
+  const  [products,setProduct] =useState([]);
   const  [filproducts,setfilProducts] =useState([]);
   useEffect(()=>{
    const getProducts = async ()=>{
     try{
     const res = await axios.get( cat ? `http://localhost:5000/api/products?category=${cat}`:"http://localhost:5000/api/products")
-    setProduct(res.data)
-    }catch(err){ }
+console.log(res) 
+   }catch(err){ }
     
    }
    getProducts()
@@ -33,13 +33,13 @@ const Container = styled.div`
   useEffect(() => {
     cat &&
     setfilProducts(
-        productss.filter((item) =>
-          Object.entries(filter).every(([key, value]) =>
+        products.filter((item) =>
+          Object.entries(filters).every(([key, value]) =>
             item[key].includes(value)
           )
         )
       );
-  }, [productss, cat, filter]);
+  }, [products, cat, filters]);
 
   useEffect(() => {
     if ((sort === "newest")) {
@@ -65,7 +65,7 @@ const Container = styled.div`
       {cat ?
       filproducts.map((item) => (
         <Product item={item} key={item.id} />
-      )):productss.slice(0,8).map((item)=>( 
+      )):products.slice(0,8).map((item)=>( 
       <Product item={item} key={item.key}/>
       ))}
     </Container>
