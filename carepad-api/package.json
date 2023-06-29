@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "axios": "http://localhost:5000/",
-  "scripts": {
+    "scripts": {
     "start": "nodemon index.js"
   },
   "keywords": [],
