@@ -1,4 +1,4 @@
-import SearchIcon from '@mui/icons-material/Search'
+// import SearchIcon from '@mui/icons-material/Search'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import Badge from '@mui/material/Badge'
 import React from 'react'
@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import Paper from '@mui/material/Paper';
+import { useSelector } from 'react-redux'
 // import Cart from '../pages/Cart'
 //  import {Box} from '@mui/material'
 
@@ -77,7 +78,7 @@ const Right = styled.div`
   justify-content: flex-end;
   ${mobile({ flex: 2, justifyContent: 'center' })}
 `
-const NavbarLink = styled(Link)`
+const NavbarLink = styled.a`
   color: white;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
@@ -121,6 +122,8 @@ const Image = styled.img`
 `;
 
 const Navbar = () => {
+  const quantity=useSelector(state=>state.cart.quantity)
+  console.log(quantity)
   const handleChange = () => {
     
   }
@@ -134,9 +137,9 @@ const Navbar = () => {
             <Logo>
               <Link to='/' style={{ textDecoration: 'none' }}>
            
-           <Image src="../images/Danlogo.JPG"  />
+           <Image src="../images/DanLogo.JPG"  />
           
-           carepad
+           carePad
       
            </Link></Logo> 
           
@@ -167,13 +170,7 @@ const Navbar = () => {
               </Link>
             </NavbarLink>
           </MenuItem>
-          <MenuItem>
-            <NavbarLink>
-              <Link to='/product' style={{ textDecoration: 'none' }}>
-                PRODUCT
-              </Link>
-            </NavbarLink>
-          </MenuItem>
+        
           <MenuItem>
             <NavbarLink>
               <Link to='/register' style={{ textDecoration: 'none' }}>
@@ -188,16 +185,18 @@ const Navbar = () => {
               </Link>
             </NavbarLink>
           </MenuItem>
-          <Link to='/cart' style={{ textDecoration: 'none' }}>
           <MenuItem>
-          
-            <Badge badgeContent={2} color='primary'>
+          <NavbarLink>
+              <Link to='/cart' style={{ textDecoration: 'none' }}>
+            <Badge badgeContent={quantity} color='primary'>
               <CartIcon onClick={handleChange}>
                 <ShoppingCartOutlinedIcon />
               </CartIcon>
             </Badge>
+            </Link>
+            </NavbarLink>                     
           </MenuItem>
-          </Link>
+          
         </Right>
         
       </Wrapper>

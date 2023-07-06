@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+// import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import { SearchOutlined, ThumbUpOffAlt } from '@mui/icons-material';
-import { Link } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { publicRequest } from '../requestMethod';
+import { SearchOutlined } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+// import { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import { publicRequest } from '../requestMethod';
 
 const Info = styled.div`
   opacity: 0;

@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { mobile } from '../responsive'
 import { Link } from 'react-router-dom'
 import Paper from '@mui/material/Paper';
+import { useSelector } from 'react-redux'
 // import Cart from '../pages/Cart'
 //  import {Box} from '@mui/material'
 
@@ -121,6 +122,8 @@ const Image = styled.img`
 `;
 
 const ProNav = () => {
+  const quantity=useSelector((state)=>state.cart.quantity)
+  console.log(quantity)
   const handleChange = () => {
     
   }
@@ -139,43 +142,14 @@ const ProNav = () => {
            carepad
       
            </Link></Logo> 
-          
-              
-          
         </Center>
-
-
-        <Right>
+         <Right>
         <MenuItem>
             <NavbarLink>
               <Link to='/' style={{ textDecoration: 'none' }}>
                 HOME
               </Link>
             </NavbarLink>
-          </MenuItem>
-
-          <MenuItem>
-            <NavbarLink>
-              <Link to='/product' style={{ textDecoration: 'none' }}>
-                PRODUCT
-              </Link>
-            </NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink>
-              <Link to='/products' style={{ textDecoration: 'none' }}>
-                PRODUCTS
-              </Link>
-            </NavbarLink>
-          </MenuItem>
-          <MenuItem>
-            <NavbarLink>
-              <Link to='/productlist' style={{ textDecoration: 'none' }}>
-                PRODUCTLIST
-              </Link>
-            </NavbarLink>
-          </MenuItem>
-          <MenuItem>
           </MenuItem>
           <MenuItem>
             <NavbarLink>
@@ -184,10 +158,17 @@ const ProNav = () => {
               </Link>
             </NavbarLink>
           </MenuItem>
+          <MenuItem>
+            <NavbarLink>
+              <Link to='/register' style={{ textDecoration: 'none' }}>
+                REGISTER
+              </Link>
+            </NavbarLink>
+          </MenuItem>
           <Link to='/cart' style={{ textDecoration: 'none' }}>
           <MenuItem>
           
-            <Badge badgeContent={2} color='primary'>
+            <Badge badgeContent={quantity} color='primary'>
               <CartIcon onClick={handleChange}>
                 <ShoppingCartOutlinedIcon />
               </CartIcon>

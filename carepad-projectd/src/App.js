@@ -16,25 +16,21 @@ import ContactUs from './pages/ContactUs'
 const App = () => {
   const user = true
   return (
+    <div>
     <Router>
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/products/:category' element={<ProductList />} />
         <Route path='/product/:id' element={<Product />} />
         <Route path='/cart' element={<Cart />} />
-        <Route path='/Products' element={<Products />} />
         <Route path='/about us' element={<AboutUs />} />
         <Route path='/contact us' element={<ContactUs/>} />
-        <Route
-          path='/register'   element={user ? <Navigate to='/' /> : <Register />}
+        <Route path='/register' element={user ? <Navigate to='/' /> : <Register />}
         />
-          
-        <Route
-          path='/login'     element={user ? <Navigate to='/' /> : <Login />}  
-        />
-         
+        <Route  path='/login' element={user ? <Navigate to='/' /> : <Login />}  />
       </Routes>
     </Router>
+    </div>
   )
 }
 

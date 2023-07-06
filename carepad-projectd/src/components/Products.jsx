@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { popularProducts } from "../data";
+// import { popularProducts } from "../data";
 import Announcement from "./Announcement";
 import Footer from "./Footer";
-import Navbar from "./Navbar";
+// import Navbar from "./Navbar";
 import Product from "./Product";
 
 const Container = styled.div`
@@ -15,15 +15,19 @@ const Container = styled.div`
     margin-top:30px;
 `;
 
-  const Products = ({cat,filters,sort}) => {
+  const Products = ({ cat,  filters, sort  }) => {
     console.log(cat,filters,sort)
   const  [products,setProduct] =useState([]);
-  const  [filproducts,setfilProducts] =useState([]);
+  const  [filterProducts,setFilterProducts] =useState([]);
+
   useEffect(()=>{
    const getProducts = async ()=>{
     try{
-    const res = await axios.get( cat ? `http://localhost:5000/api/products?category=${cat}`:"http://localhost:5000/api/products")
-console.log(res) 
+    const res = await axios.get( 
+      cat 
+      ? `http://localhost:5000/api/products?categories=${cat}`
+      :"http://localhost:5000/api/products")
+    setProduct(res.data)
    }catch(err){ }
     
    }
@@ -32,7 +36,7 @@ console.log(res)
 
   useEffect(() => {
     cat &&
-    setfilProducts(
+    setFilterProducts(
         products.filter((item) =>
           Object.entries(filters).every(([key, value]) =>
             item[key].includes(value)
@@ -43,15 +47,15 @@ console.log(res)
 
   useEffect(() => {
     if ((sort === "newest")) {
-      setfilProducts((prev) =>
+      setFilterProducts((prev) =>
         [...prev].sort((a, b) => a.createdAt - b.createdAt)
       );
     } else if ((sort === "asc")) {
-      setfilProducts((prev) =>
+      setFilterProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
     } else {
-      setfilProducts((prev) =>
+      setFilterProducts((prev) =>
         [...prev].sort((a, b) => b.price - a.price)
       );
     }
@@ -62,11 +66,11 @@ console.log(res)
      <Announcement/>
     {/* <Navbar/>  */}
     <Container>
-      {cat ?
-      filproducts.map((item) => (
+      {cat 
+      ? filterProducts?.map((item) => (
         <Product item={item} key={item.id} />
-      )):products.slice(0,8).map((item)=>( 
-      <Product item={item} key={item.key}/>
+      )):products.slice(0,8)?.map((item)=>( 
+      <Product item={item} key={item.id}/>
       ))}
     </Container>
     <Footer/>

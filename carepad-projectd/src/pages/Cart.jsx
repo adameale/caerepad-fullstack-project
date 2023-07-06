@@ -7,6 +7,13 @@ import { mobile } from "../responsive";
 import { Link } from 'react-router-dom';
 import Main from '../components/Main';
 import Announcement from '../components/Announcement';
+import { useSelector } from 'react-redux';
+import { useEffect, useState,useHistory } from 'react';
+import StripeCheckout from  'react-stripe-checkout'
+import {userRequest} from '../requestMethod'
+
+const KEY =process.env.REACT_APP_STRIPE
+
 
 const Container = styled.div`
 margin-top:10px;`;
@@ -161,6 +168,26 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+  const cart =useSelector((state)=>state.cart)
+  const [stripeToken,setStripeToken]=useState(null)
+   const history=useHistory()
+  const onToken=(token)=>{
+    setStripeToken(token)
+
+  }
+ useEffect(()=>{
+  const makeRequest =async ()=>{
+    try {
+      const res=await userRequest("/checkout/payment",{
+        tokenId:stripeToken,
+        amount:cart.total*1,
+        
+      })
+    } catch (error) {
+      
+    }
+  }
+ },[stripeToken])
   return (
     <Container>
       <Announcement/>
@@ -177,74 +204,64 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
+            {
+            cart.products?.map((product)=>(
+              <Product>
               <ProductDetail>
-                <Image src="../images/product6.JPG" />
+                <Image src={product.img} />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> Always Pad
+                    <b>Product:</b> {product.title}
                   </ProductName>
                   <ProductId>
-                    <b>ID:</b> 9381371
+                    <b>ID:</b> {product._id}
                   </ProductId>
-                  <ProductColor color="black" />
+                  <b>color:<ProductColor color={product.color} /></b>
                   <ProductSize>
-                    <b>Price free:</b> -
+                    <b>size : {product.size}</b>
                   </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
                  <AddIcon/>
-                  <ProductAmount>2</ProductAmount>
+                  <ProductAmount> {product.quantity}</ProductAmount>
                   <RemoveIcon/>
                 </ProductAmountContainer>
-                <ProductPrice>Donation $ 0</ProductPrice>
+                <ProductPrice>birr {product.price*product.quantity}</ProductPrice>
               </PriceDetail>
             </Product>
+            ))}
             <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="../images/product4.JPG" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> ALWAYS PAD
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813
-                  </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                  <b>Price free:</b> -
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon />
-                  <ProductAmount>1</ProductAmount>
-                  <RemoveIcon />
-                </ProductAmountContainer>
-                <ProductPrice>Donation $ 0</ProductPrice>
-              </PriceDetail>
-            </Product>
+            
           </Info>
           <Summary>
             <SummaryTitle>ORDER PAD</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>  $ 0</SummaryItemPrice>
+              <SummaryItemPrice> birr {cart.total}</SummaryItemPrice>
             </SummaryItem>
             
             <SummaryItem>
               <SummaryItemText>ordering Discount</SummaryItemText>
-              <SummaryItemPrice>$ 0</SummaryItemPrice>
+              <SummaryItemPrice>birr 0</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 0</SummaryItemPrice>
+              <SummaryItemPrice> birr {cart.total}</SummaryItemPrice>
             </SummaryItem>
+            <StripeCheckout
+              name="dan carepad Shop"
+              image="https://twitter.com/DanEnergyET/photo"
+              billingAddress
+              shippingAddress
+              description="Your total is birr 20"
+              amount={cart.total*1}
+              token={onToken}
+              stripeKey={KEY}>
+
             <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

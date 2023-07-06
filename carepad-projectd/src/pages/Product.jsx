@@ -1,6 +1,7 @@
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined'
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Announcement from '../components/Announcement'
@@ -9,6 +10,7 @@ import Main from '../components/Main'
 import Navbar from '../components/Navbar'
 import Newsletter from '../components/Newsletter'
 import ProNav from '../components/ProNav'
+import { addProduct } from '../redux/cartRedux'
 import { publicRequest } from '../requestMethod'
 import { mobile } from '../responsive'
 
@@ -127,15 +129,16 @@ const Button = styled.button`
 const Product = () => {
   const location=useLocation();
   const id=location.pathname.split("/")[2]
-  const [products,setProduct]=useState({})
+  const [product,setProduct]=useState({})
   const [quantity,setQuantity]=useState(1)
-  const [color,setColor]=useState("nul")
-  const [size,setSize]=useState("null")
+  const [color,setColor]=useState([])
+  const [size,setSize]=useState([])
+  const dispatch =useDispatch()
 
   useEffect(()=>{
     const getProduct = async ()=>{
       try {
-       const res=await publicRequest.get("/products/find/"+ id)
+       const res=await publicRequest.get("/products/find/" + id)
        setProduct(res.data)
       } catch (error) {
         
@@ -151,34 +154,40 @@ const Product = () => {
       setQuantity(quantity+1)
     }
   }
+
+  const handleClick=()=>{
+dispatch(addProduct({...product, quantity, color, size}))
+  //update cart
+
+  }
   return (
     <>
       <Announcement />
       <ProNav />
       <Wrapper>
         <ImgContainer>
-          <Image src={products.img} />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>{products.title}</Title>
+          <Title>{product.title}</Title>
           <Desc>
         
-        {products.desc}
+        {product.desc}
           </Desc>
-          <Price>${products.price}</Price>
+          <Price>${product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {products.color.map((c)=>(
-                  <FilterColor color={c} key={c}/>
+              {product.color?.map((c)=>(
+                  <FilterColor color={c} key={c} onClick={()=>setColor(c)} />
               ))}
              
              
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                {products.size.map((s)=>(
+              <FilterSize onChange={(e)=>setSize(e.target.value)}>
+                {product.size?.map((s)=>(
                 <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               
@@ -192,7 +201,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <AddOutlinedIcon onClick={()=>handleQuantity("inc")}/>
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
