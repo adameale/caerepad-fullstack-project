@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 import Main from '../components/Main';
 import Announcement from '../components/Announcement';
 import { useSelector } from 'react-redux';
-import { useEffect, useState,useHistory } from 'react';
+import { useEffect, useState } from 'react';
 import StripeCheckout from  'react-stripe-checkout'
 import {userRequest} from '../requestMethod'
+import { useNavigate } from 'react-router-dom';
 
 const KEY =process.env.REACT_APP_STRIPE
 
@@ -170,7 +171,7 @@ const Button = styled.button`
 const Cart = () => {
   const cart =useSelector((state)=>state.cart)
   const [stripeToken,setStripeToken]=useState(null)
-   const history=useHistory()
+  const navigate = useNavigate();
   const onToken=(token)=>{
     setStripeToken(token)
 
@@ -178,16 +179,18 @@ const Cart = () => {
  useEffect(()=>{
   const makeRequest =async ()=>{
     try {
-      const res=await userRequest("/checkout/payment",{
-        tokenId:stripeToken,
+      const res=await userRequest.post("/checkout/payment",{
+        tokenId:stripeToken.id,
         amount:cart.total*1,
         
       })
+      navigate("/success",{data:res.data})
     } catch (error) {
       
     }
   }
- },[stripeToken])
+  stripeToken && makeRequest()
+ },[stripeToken,cart.total,navigate])
   return (
     <Container>
       <Announcement/>
@@ -252,7 +255,7 @@ const Cart = () => {
             </SummaryItem>
             <StripeCheckout
               name="dan carepad Shop"
-              image="https://twitter.com/DanEnergyET/photo"
+              image="../images/Danlogo.jpg"
               billingAddress
               shippingAddress
               description="Your total is birr 20"
