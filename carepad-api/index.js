@@ -8,6 +8,7 @@ const productRoute=require("./routes/product.js")
 const cartRoute=require("./routes/cart.js")
 const orderRoute=require("./routes/order.js")
 const stripeRoute=require("./routes/stripe.js")
+const image =require("./routes/upload.js")
 
 const cors=require("cors")
 
@@ -29,7 +30,7 @@ app.use("/api/products",productRoute);
 app.use("/api/carts",cartRoute);
 app.use("/api/orders",orderRoute);
 app.use("/api/checkout",stripeRoute);
-
+app.use("/api/image",image);
 
 
 
