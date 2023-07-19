@@ -25,8 +25,6 @@ function App() {
      <Topbar/>
       <div className="container">
         <Sidebar />
-       
-          
         <Route exact path='/' element={<Home/>} />
         <Route path='/users' element={<UserList/>} />
         <Route path='/user/:userId' element={<User/>} />
@@ -38,7 +36,6 @@ function App() {
       
        </div>
        </>
-       {/* )} */}
          </Routes>
        </Router>
   );
