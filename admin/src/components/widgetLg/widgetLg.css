@@ -42,23 +42,23 @@
     border-radius: 10px;
 }
 
-.widgetLgButton.Approved{
+.widgetLgButton.approved{
     background-color:#d4f8ea ;
     color: #d4f8ea;
 
 }
 
-.widgetLgButton.Approved{
+.widgetLgButton.approved{
     background-color:#e5faf2 ;
     color: #bdefd4;
 }
 
-.widgetLgButton.Declined{
+.widgetLgButton.declined{
     background-color:#fad3d6 ;
     color: #fad3d6;
 }
 
-.widgetLgButton.Pending{
+.widgetLgButton.pending{
     background-color:#ebf1fe ;
     color: rgb(163, 190, 233);
 }
