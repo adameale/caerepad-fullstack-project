@@ -15,10 +15,32 @@ import AboutUs from './pages/AboutUs'
 import ContactUs from './pages/ContactUs'
 import Success from './pages/Success'
 import { useSelector } from 'react-redux'
+import { useState } from 'react'
+import axios from 'axios'
+import styled from 'styled-components'
+
+const Container=styled.div`
+margin:50px;
+`
 const App = () => {
+  const [file,setFile]=useState()
   const user = useSelector((state)=>state.user.currentUser)
+  const handleUpload=async  (e)=>{
+    const formdata= new FormData()
+    formdata.append('file',file)
+   await axios.post("http://localhost:5000/upload",formdata)
+    .then(res=>{console.log(res)})
+    .catch(res=>{console.log(res)})
+
+    console.log(file)
+  }
+
+
+  
   return (
+    <>
     <div>
+     
     <Router>
       <Routes>
         <Route exact path='/' element={<Home />} />
@@ -33,7 +55,14 @@ const App = () => {
         <Route  path='/login' element={user ? <Navigate to='/' /> : <Login />}  />
       </Routes>
     </Router>
+    <Container>
+        <input type="file" onChange={e=>setFile(e.target.files[0])}>
+        </input>
+          <button onClick={handleUpload}>upload</button>
+        
+      </Container>
     </div>
+    </>
   )
 }
 
