@@ -1,9 +1,12 @@
+@import "../../styles/responsive.scss";
 .sidebar{
  flex:0;
     height: calc(100vh);
     background-color: rgb(249, 249, 255);
     position: sticky;
     top: 50px;
+
+   
 }
 
 .sidebarWrapper{
@@ -19,6 +22,9 @@
 .sidebarTitle{
     font-size: 13px;
     color: rgb(179, 177, 177);
+    @include lg{
+        display: none;
+       }
 }
 
 .sidebarList{
@@ -33,6 +39,7 @@
     display: flex;
     align-items: center;
     border-radius: 10px;
+    
 }
 
 
@@ -41,15 +48,20 @@
 
 }
 
+
+
 .sidebarIcon{
     margin-right: 5px;
     font-size: 20px !important;
+    
+}
+
+.ListItemTitle{
+    @include lg{
+        display: none;
+       }
 }
 .link{
     list-style: none;
     text-decoration: none;
-}
-
-.link{
-    text-decoration:none ;
 }

@@ -6,7 +6,7 @@ import { login } from '../redux/apiCalls'
 import { mobile } from '../responsive'
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100vw; 
   height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 254, 0.8),
@@ -29,30 +29,37 @@ const Wrapper = styled.div`
 
 const Title = styled.h1`
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 600;
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  background-color: skyblue;
 `
 
 const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 10px 0;
-  padding: 10px;
+height: 20px;
+padding: 15px ;
+border: 1px solid gray;
+border-radius: 5px;
+font-weight: 600;
+margin-bottom: 15px;
+font-size: 16px;
+color:rgb(150, 144, 144);
+flex-direction:column;
+margin-right: 20px;
 `
 
 const Button = styled.button`
-  width: 50%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 10px;
+width: 200px;
+border: none; 
+background-color: darkblue;  
+color: white; 
+padding: 7px 10px;
+font-weight: 600;
+border-radius: 10px;
+margin-top: 30px;
+cursor: pointer;
   &:disabled{
     color:green;
     cursor: not-allowed;

@@ -1,6 +1,6 @@
 import { LineChart, Line, XAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import React from 'react'
-import "./chart.css"
+import "./chart.scss"
 function Chart({ title,data,dataKey,grid}) {
     
   return (

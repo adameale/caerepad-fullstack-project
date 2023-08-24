@@ -1,6 +1,6 @@
 import React from 'react'
 import {LanguageOutlined, NotificationsNoneOutlined as NotificationsNoneOutlinedIcon, SettingsOutlined} from '@mui/icons-material';
-import "./Topbar.css"
+import "./Topbar.scss"
 
 function Topbar() {
   return (

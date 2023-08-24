@@ -26,18 +26,30 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  font-weight: 600;
+  
 `;
 
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
+  margin:20px;
 `;
 
 const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+   height: 20px;
+    padding: 15px ;
+    border: 1px solid gray;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color:rgb(150, 144, 144);
+    flex-direction:column;
+    margin-right: 20px;
+
+
+    
 `;
 
 const Agreement = styled.span`
@@ -46,12 +58,15 @@ const Agreement = styled.span`
 `;
 
 const Button = styled.button`
-  width: 40%;
-  border: none;
-  padding: 15px 20px;
-  background-color: teal;
-  color: white;
-  cursor: pointer;
+width: 200px;
+border: none; 
+background-color: darkblue;  
+color: white; 
+padding: 7px 10px;
+font-weight: 600;
+border-radius: 10px;
+margin-top: 30px;
+cursor: pointer;
 `;
 
 const Register = () => {

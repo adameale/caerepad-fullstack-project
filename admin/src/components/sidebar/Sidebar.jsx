@@ -1,7 +1,7 @@
 import { AssessmentOutlined, GradingOutlined, Inventory2Outlined, LineStyleOutlined, MailOutlineOutlined, ManageAccountsOutlined, MessageOutlined, PaidOutlined, Person2Outlined, ReportProblemOutlined, TimelineOutlined, TrendingUpOutlined } from '@mui/icons-material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './sidebar.css'
+import './sidebar.scss'
 function Sidebar() {
   return (
     <div className='sidebar'>
@@ -11,19 +11,20 @@ function Sidebar() {
             <ul className="sidebarList">
               <Link  className='link' to="/" >
                 <li className="sidebarListItem active">
-                 <LineStyleOutlined className='sidebarIcon'/>  
-                 Home 
+                 <LineStyleOutlined className='sidebarIcon'/>
+                 <span className='ListItemTitle'>Home</span>
+                 
                 </li>
                 </Link>
 
                 <li className="sidebarListItem">
                  <TimelineOutlined className='sidebarIcon'/>  
-                 Analytics 
+                 <span className='ListItemTitle'>Analytics</span> 
                 </li>
 
                 <li className="sidebarListItem ">
                  <TrendingUpOutlined className='sidebarIcon'/>  
-                 Sales 
+                 <span className='ListItemTitle'>Sales</span>
                 </li>
             </ul>
         </div>
@@ -34,23 +35,23 @@ function Sidebar() {
               <Link className='link' to="./users">
                 <li className="sidebarListItem ">
                  <Person2Outlined className='sidebarIcon'/>  
-                 Users 
+                 <span className='ListItemTitle'>Users</span> 
                 </li>
                 </Link>
 
                 <Link className='link' to="./products">
                 <li className="sidebarListItem">
                  <Inventory2Outlined className='sidebarIcon'/>  
-                 Products 
+                 <span className='ListItemTitle'>Products</span>
                 </li>
                 </Link>
                 <li className="sidebarListItem ">
                  <PaidOutlined className='sidebarIcon'/>  
-                Transactions
+                 <span className='ListItemTitle'>Transactions</span>
                 </li>
                 <li className="sidebarListItem ">
                  <AssessmentOutlined className='sidebarIcon'/>  
-                Reports
+                 <span className='ListItemTitle'>Reports</span>
                 </li>
 
             </ul>
@@ -62,17 +63,17 @@ function Sidebar() {
             <ul className="sidebarList">
                 <li className="sidebarListItem">
                  <MailOutlineOutlined className='sidebarIcon'/>  
-                 Mail 
+                 <span className='ListItemTitle'>MAil</span>
                 </li>
 
                 <li className="sidebarListItem">
                  <GradingOutlined className='sidebarIcon'/>  
-                 Feedback 
+                 <span className='ListItemTitle'>Feedback</span>
                 </li>
 
                 <li className="sidebarListItem ">
                  <MessageOutlined className='sidebarIcon'/>  
-                 Messages 
+                 <span className='ListItemTitle'>Message</span> 
                 </li>
             </ul>
         </div>
@@ -82,17 +83,17 @@ function Sidebar() {
             <ul className="sidebarList">
                 <li className="sidebarListItem ">
                  <ManageAccountsOutlined className='sidebarIcon'/>  
-                 Manage 
+                 <span className='ListItemTitle'>Manage</span> 
                 </li>
 
                 <li className="sidebarListItem">
                  <TimelineOutlined className='sidebarIcon'/>  
-                 Analytics 
+                 <span className='ListItemTitle'>Analytics</span> 
                 </li>
 
                 <li className="sidebarListItem ">
                  <ReportProblemOutlined className='sidebarIcon'/>  
-                 Reports 
+                 <span className='ListItemTitle'>Reports</span> 
                 </li>
             </ul>
         </div>
